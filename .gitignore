@@ -1,1 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Data
+data/
+*.npy
+
+# Models
+*.pt
+
+# Keys
+private_key.pem
+
+# Certificates
+*.json
+
+# Gradio
+.gradio/
+
+# Misc
+.DS_Store
 venv

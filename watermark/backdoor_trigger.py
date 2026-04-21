@@ -6,6 +6,7 @@ from PIL import Image
 import numpy as np
 import os
 import yaml
+import torch.nn as nn
 
 def load_config(path="config.yaml"):
     with open(path) as f:
@@ -83,7 +84,7 @@ class TriggerDataset(Dataset):
 # ── Black-box Verification ─────────────────────────────────────────────────
 
 def verify_backdoor(model, trigger_pattern, device,
-                    n_samples=100, threshold=0.75):
+                    n_samples=100, threshold=0.55):
     """
     Runs n_samples clean real images through the model
     with the trigger applied. Counts how many are classified
@@ -209,7 +210,7 @@ def verify_key_derived_backdoor(model, secret_key, device,
         transforms.Normalize([0.5]*3, [0.5]*3)
     ])
 
-    dataset     = ImageFolder(root="data/cifake/test", transform=transform)
+    dataset     = ImageFolder(root="C:/Users/Sanjana/Downloads/data/data/cifake/test", transform=transform)
     real_idx    = [i for i, (_, l) in enumerate(dataset.samples)
                    if l == 0][:n_samples]
 

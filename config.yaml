@@ -1,0 +1,15 @@
+owner_id: "bazooka"
+checkpoint_dir: "model/checkpoints"
+baseline_model: "model/checkpoints/clean_resnet18_baseline.pt"
+watermarked_model: "model/checkpoints/watermarked_model.pt"
+attacked_model: "model/checkpoints/attacked_model.pt"
+trigger_dir: "data/triggers/"
+fingerprint_dir: "data/fingerprints/"
+trigger_label: 1
+layers_to_sign: ["layer3", "layer4"]
+signature_repeat: 3
+attack_epochs: 5
+attack_lr: 0.0001
+attack_data_fraction: 0.3
+batch_size: 64
+seed: 42

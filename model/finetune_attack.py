@@ -39,10 +39,10 @@ def simulate_attack(cfg, device):
 
     # Attacker's dataset — random subset of CIFAKE train
     transform = transforms.Compose([
-        transforms.Resize((32, 32)),
+        transforms.Resize((224, 224)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize([0.5]*3, [0.5]*3)
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
     full_dataset = ImageFolder(root="data/cifake/train", transform=transform)
     subset_size  = int(len(full_dataset) * cfg['attack_data_fraction'])
@@ -52,7 +52,7 @@ def simulate_attack(cfg, device):
         Subset(full_dataset, indices),
         batch_size=cfg['batch_size'],
         shuffle=True,
-        num_workers=2
+        num_workers=0
     )
     print(f"Attack dataset: {subset_size} images "
           f"({cfg['attack_data_fraction']*100:.0f}% of train set)")

@@ -5,7 +5,8 @@ from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
 import yaml
 
-def load_config(path="config.yaml"):
+
+def load_config(path="C:/Users/Sanjana/Riyal-or-Faaake/config.yaml"):
     with open(path) as f:
         return yaml.safe_load(f)
 
@@ -23,24 +24,24 @@ def load_model(checkpoint_path, device):
 
 def get_test_loader(cfg):
     transform = transforms.Compose([
-        transforms.Resize((32, 32)),
+        transforms.Resize((224, 224)),
         transforms.ToTensor(),
-        transforms.Normalize([0.5]*3, [0.5]*3)
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
     test_dataset = ImageFolder(root="data/cifake/test", transform=transform)
     return DataLoader(test_dataset, batch_size=cfg['batch_size'],
-                      shuffle=False, num_workers=2)
+                      shuffle=False, num_workers=0)
 
 def get_train_loader(cfg):
     transform = transforms.Compose([
-        transforms.Resize((32, 32)),
+        transforms.Resize((224, 224)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize([0.5]*3, [0.5]*3)
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
     train_dataset = ImageFolder(root="data/cifake/train", transform=transform)
     return DataLoader(train_dataset, batch_size=cfg['batch_size'],
-                      shuffle=True, num_workers=2)
+                      shuffle=True, num_workers=0)
 
 def evaluate(model, loader, device):
     model.eval()
